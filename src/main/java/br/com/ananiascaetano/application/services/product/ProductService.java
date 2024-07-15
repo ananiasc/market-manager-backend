@@ -2,7 +2,6 @@ package br.com.ananiascaetano.application.services.product;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ananiascaetano.domain.entities.product.Product;
@@ -10,14 +9,15 @@ import br.com.ananiascaetano.domain.entities.product.ProductType;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductRepository;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductTypeRepository;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Service
 public class ProductService {
-	@Autowired
-	ProductRepository repository;
+
+	private final ProductRepository repository;
 	
-	@Autowired
-	ProductTypeRepository typeRepository;
+	private final ProductTypeRepository typeRepository;
 	
 	public List<Product> findAll(){
 		return repository.findAll();

@@ -1,7 +1,6 @@
 package br.com.ananiascaetano.presentation.controllers.product;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +22,6 @@ public class ProductController {
 	
 	@PostMapping
 	public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
-		return new ProductDTO(productService.createProduct(productDTO));
+		return productService.createProduct(productDTO);
 	}
 }

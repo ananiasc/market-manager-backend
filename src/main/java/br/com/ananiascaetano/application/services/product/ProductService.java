@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductRepository;
-import br.com.ananiascaetano.infrastructure.repositories.product.ProductTypeRepository;
 import br.com.ananiascaetano.mappers.product.ProductMapper;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ public class ProductService {
 
 	private final ProductRepository repository;
 	
-	private final ProductTypeRepository typeRepository;
+	private final ProductTypeService productTypeService;
 	
 	private ProductMapper productMapper = new ProductMapper();
 	
@@ -31,7 +30,7 @@ public class ProductService {
 	}
 	
 	public ProductDTO createProduct(ProductDTO productDTO) {
-		typeRepository.findById(productDTO.getType().getId())
+		productTypeService.findById(productDTO.getType().getId())
 				.orElseThrow(() ->  new RuntimeException("Product type not found"));
 		
 		Product product = this.model.map(productDTO, Product.class);

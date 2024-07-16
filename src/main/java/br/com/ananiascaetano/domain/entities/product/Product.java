@@ -38,12 +38,12 @@ public class Product {
 	@Column(name = "discounted_price")
 	private BigDecimal discountedPrice;
 	@Column(name = "is_discounted")
-	private boolean isDiscounted;
+	private boolean discounted;
 	
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	private ProductType type;
 	private int stock;
 	@Column(name = "is_active")
-	private boolean isActive;
+	private boolean active;
 }

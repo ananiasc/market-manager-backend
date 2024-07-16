@@ -17,9 +17,8 @@ public class ProductDTO {
 	private String longDescription;
 	private BigDecimal price;
 	private BigDecimal discountedPrice;
-	private Boolean isDiscounted;
 	private String type;
+	private boolean discounted;
 	private int stock;
-	private Boolean isActive;
-	
+	private boolean active;
 }

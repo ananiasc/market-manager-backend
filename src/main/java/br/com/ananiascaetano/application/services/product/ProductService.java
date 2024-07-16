@@ -8,6 +8,7 @@ import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.domain.entities.product.ProductType;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductRepository;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductTypeRepository;
+import br.com.ananiascaetano.mappers.product.ProductMapper;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
 import lombok.RequiredArgsConstructor;
 
@@ -19,8 +20,11 @@ public class ProductService {
 	
 	private final ProductTypeRepository typeRepository;
 	
-	public List<Product> findAll(){
-		return repository.findAll();
+	private ProductMapper productMapper = new ProductMapper();
+	public List<ProductDTO> findAll(){
+		List<Product> products = repository.findAll();
+		
+		return productMapper.convertToEntityDTOList(products);
 	}
 	
 	public Product createProduct(ProductDTO productDTO) {

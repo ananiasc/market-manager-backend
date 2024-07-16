@@ -18,7 +18,7 @@ public class ProductController {
 
 	@GetMapping
 	public List<ProductDTO> findAll() {
-		return productService.findAll().stream().map(obj -> new ProductDTO(obj)).collect(Collectors.toList());
+		return productService.findAll();
 	}
 	
 	@PostMapping

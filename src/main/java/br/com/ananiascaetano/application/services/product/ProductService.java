@@ -2,13 +2,10 @@ package br.com.ananiascaetano.application.services.product;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductRepository;
-import br.com.ananiascaetano.mappers.product.ProductMapper;
-import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -19,23 +16,14 @@ public class ProductService {
 	
 	private final ProductTypeService productTypeService;
 	
-	private ProductMapper productMapper = new ProductMapper();
-	
-	private ModelMapper model = new ModelMapper();
-	
-	public List<ProductDTO> findAll(){
-		List<Product> products = repository.findAll();
-		
-		return productMapper.convertToEntityDTOList(products);
+	public List<Product> findAll(){
+		return repository.findAll();
 	}
 	
-	public ProductDTO createProduct(ProductDTO productDTO) {
-		productTypeService.findById(productDTO.getType().getId())
+	public Product createProduct(Product product) {
+		productTypeService.findById(product.getType().getId())
 				.orElseThrow(() ->  new RuntimeException("Product type not found"));
 		
-		Product product = this.model.map(productDTO, Product.class);
-		Product productSaved = repository.save(product);
-		
-		return this.model.map(productSaved, ProductDTO.class);
+		return repository.save(product);
 	}
 }

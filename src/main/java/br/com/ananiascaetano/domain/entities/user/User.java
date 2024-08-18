@@ -2,6 +2,7 @@ package br.com.ananiascaetano.domain.entities.user;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class User implements UserDetails {
 		if(this.role == UserRole.ADMIN) {
 			return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
 		}
-		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 	
 	@Override

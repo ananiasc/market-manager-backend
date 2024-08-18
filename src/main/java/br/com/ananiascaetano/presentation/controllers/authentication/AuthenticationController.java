@@ -31,4 +31,9 @@ public class AuthenticationController {
 		
 		return new LoginResponseDTO(token);
 	}
+	
+	@PostMapping("validate-token")
+	public Boolean isAuthenticated() {
+		return true;
+	}
 }

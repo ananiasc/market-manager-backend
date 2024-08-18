@@ -1,5 +1,6 @@
 package br.com.ananiascaetano.infrastructure.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,19 +16,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Collections;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+	@Value("${api.cors.allow.origin.url}")
+	private String corsAllowOrigin;
 
 	private final SecurityFilter securityFilter;
 	
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity
-				.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-				.and()
+				.cors().and()
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(
@@ -48,4 +54,15 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
     	return new BCryptPasswordEncoder();
     }
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Collections.singletonList(corsAllowOrigin));
+		configuration.setAllowedMethods(Collections.singletonList("*"));
+		configuration.setAllowedHeaders(Collections.singletonList("*"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }

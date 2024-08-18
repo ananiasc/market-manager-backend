@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "api.security.token.secret",
-  "type": "java.lang.String",
-  "description": "defines my 'secret' for forming the application's security token"
-}]}
+{"properties": [
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "defines my 'secret' for forming the application's security token"
+  },
+  {
+    "name": "api.cors.allow.origin.url",
+    "type": "java.lang.String",
+    "description": "set my domain url to allow in cors"
+  }
+]}

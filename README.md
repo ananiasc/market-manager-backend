@@ -15,8 +15,8 @@ Este repositório contém o código backend para uma aplicação de e-commerce. 
 - [Arquitetura](#arquitetura)
 - [Primeiros Passos](#primeiros-passos)
 - [Configuração](#configuração)
-- [Documentação da API](#documentacao-da-api)
-- [Licença](#licenca)
+- [Documentação da API](#documentação-da-api)
+- [Licença](#licença)
 
 ## Recursos
 

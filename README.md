@@ -1,6 +1,105 @@
 ![Java](https://img.shields.io/badge/Java-1.8-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7-green)
 
-# Market Backend (E-Commerce)
+# Português
+
+# Market Manager Backend (E-Commerce)
+
+Este repositório contém o código backend para uma aplicação de e-commerce. O backend é responsável por lidar com a lógica de negócios, interações com o banco de dados e APIs para a plataforma de e-commerce.
+
+À medida que atualizo esta aplicação, adicionarei seus recursos e quaisquer outras alterações relacionadas à configuração da aplicação neste README.
+
+## Índice
+
+- [Recursos](#recursos)
+- [Tecnologias](#tecnologias)
+- [Arquitetura](#arquitetura)
+- [Primeiros Passos](#primeiros-passos)
+- [Configuração](#configuração)
+- [Documentação da API](#documentação-da-api)
+- [Licença](#licença)
+
+## Recursos
+
+- Autenticação e autorização de usuários
+- Gerenciamento de catálogo de produtos
+- Funcionalidade de carrinho de compras
+- Processamento de pedidos
+- Integração com gateway de pagamento
+- Painel de administração para gerenciamento da loja
+- Relatórios e análises
+
+## Tecnologias
+
+- **Java 8**: A linguagem de programação principal utilizada.
+- **Spring Framework**: Para construir a aplicação.
+- **Spring Data JPA**: Para interações com o banco de dados.
+- **Hibernate**: Framework ORM.
+- **PostgreSQL**: Banco de dados relacional.
+- **Maven**: Para gerenciamento de dependências e construção do projeto.
+
+## Arquitetura
+
+A aplicação segue uma arquitetura em camadas:
+1. **Camada de Controle**: Lida com as requisições e respostas HTTP.
+2. **Camada de Serviço**: Contém a lógica de negócios.
+3. **Camada de Repositório**: Interage com o banco de dados.
+
+## Primeiros Passos
+
+### Pré-requisitos
+
+- Java 8
+- Maven
+
+### Instalação
+
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/ananiasc/MarketBackend.git
+    cd ecommerce-backend
+    ```
+
+2. Instale as dependências:
+    ```bash
+    mvn clean install
+    ```
+
+3. Configure o banco de dados:
+    - Certifique-se de que o PostgreSQL esteja em execução.
+    - Crie um banco de dados chamado `marketdb`.
+    - Atualize o arquivo `application.properties` com suas credenciais de banco de dados.
+
+## Configuração
+
+A configuração da aplicação é gerenciada através do arquivo `application.properties` localizado no diretório `src/main/resources`.
+
+```properties
+# Database configuration
+spring.application.name=market-manager-backend
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Hibernate configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+api.security.token.secret=${JWT_SECRET}
+```
+
+## Documentação da API
+
+A documentação da API está disponível em `/swagger-ui.html` após a execução da aplicação. Ela fornece informações detalhadas sobre os endpoints disponíveis e seu uso.
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+# English
 
 This repository contains the backend code for an e-commerce application. The backend is responsible for handling business logic, database interactions, and APIs for the e-commerce platform.
 
@@ -73,15 +172,18 @@ The application configuration is managed through the `application.properties` fi
 
 ```properties
 # Database configuration
-spring.datasource.url=jdbc:postgresql://localhost:5432/marketdb
-spring.datasource.username=yourusername
-spring.datasource.password=yourpassword
+spring.application.name=market-manager-backend
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
 spring.datasource.driver-class-name=org.postgresql.Driver
 
 # Hibernate configuration
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+api.security.token.secret=${JWT_SECRET}
 ```
 ## API Documentation
 

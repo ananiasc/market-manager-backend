@@ -8,5 +8,10 @@
     "name": "api.cors.allow.origin.url",
     "type": "java.lang.String",
     "description": "set my domain url to allow in cors"
+  },
+  {
+    "name": "api.version",
+    "type": "java.lang.String",
+    "description": "sets the current version displayed in swagger"
   }
 ]}

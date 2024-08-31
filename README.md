@@ -87,6 +87,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 api.security.token.secret=${JWT_SECRET}
+api.version=${API_VERSION}
 ```
 
 ## Documentação da API
@@ -184,6 +185,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 api.security.token.secret=${JWT_SECRET}
+api.version=${API_VERSION}
 ```
 ## API Documentation
 

@@ -20,15 +20,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-	@Value("${api.cors.allow.origin.url}")
-	private String corsAllowOrigin;
-
 	private final SecurityFilter securityFilter;
 	
     @Bean
@@ -61,7 +59,15 @@ public class SecurityConfiguration {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Collections.singletonList(corsAllowOrigin));
+		configuration.setAllowedOrigins(
+				Arrays.asList(
+					"https://market.ananiasc.dev",
+					"https://ananiascaetano.dev.br",
+					"https://www.ananiascaetano.dev.br",
+					"http://ananiascaetano.dev.br",
+					"http://www.ananiascaetano.dev.br"
+				)
+			);
 		configuration.setAllowedMethods(Collections.singletonList("*"));
 		configuration.setAllowedHeaders(Collections.singletonList("*"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import br.com.ananiascaetano.domain.entities.user.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,6 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import br.com.ananiascaetano.constants.ErrorMessages;
-import br.com.ananiascaetano.domain.entities.user.User;
 
 @Service
 public class TokenService {
@@ -21,7 +21,7 @@ public class TokenService {
 	@Value("${api.security.token.secret}")
 	private String secret;
 	
-	public String generateToken(User user) {
+	public String generateToken(UserDetailsImpl user) {
 		try {
 			Algorithm algorithm = Algorithm.HMAC256(secret);
 			String token = JWT.create()

@@ -9,4 +9,5 @@ RUN mvn install -DskipTests
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 COPY --from=build /app/target/MarketBackend-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]

@@ -21,6 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @RequiredArgsConstructor
@@ -28,9 +29,6 @@ import java.util.Collections;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
-	@Value("${api.cors.allow.origin.url}")
-	private String corsAllowOrigin;
-
 	private final SecurityFilter securityFilter;
 	
     @Bean
@@ -41,6 +39,7 @@ public class SecurityConfiguration {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(
 					authorize -> authorize
+					.antMatchers(HttpMethod.GET, "/").permitAll()
 					.antMatchers(HttpMethod.POST, "/auth").permitAll()
 					.antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 					.anyRequest().authenticated()
@@ -62,7 +61,15 @@ public class SecurityConfiguration {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Collections.singletonList(corsAllowOrigin));
+		configuration.setAllowedOrigins(
+				Arrays.asList(
+					"https://market.ananiasc.dev",
+					"https://ananiascaetano.dev.br",
+					"https://www.ananiascaetano.dev.br",
+					"http://ananiascaetano.dev.br",
+					"http://www.ananiascaetano.dev.br"
+				)
+			);
 		configuration.setAllowedMethods(Collections.singletonList("*"));
 		configuration.setAllowedHeaders(Collections.singletonList("*"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

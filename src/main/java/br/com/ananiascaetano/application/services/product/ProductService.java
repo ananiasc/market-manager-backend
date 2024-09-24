@@ -28,4 +28,11 @@ public class ProductService {
 		
 		return repository.save(product);
 	}
+
+	public Product updateProduct(Product product) {
+		productTypeService.findById(product.getType().getId())
+				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
+
+		return repository.updateProductById(product);
+	}
 }

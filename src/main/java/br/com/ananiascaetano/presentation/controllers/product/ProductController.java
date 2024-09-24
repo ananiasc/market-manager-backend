@@ -35,4 +35,11 @@ public class ProductController {
 		Product savedProduct =  productService.createProduct(product);
 		return this.model.map(savedProduct, ProductDTO.class);
 	}
+
+	@PutMapping
+	public ProductDTO updateProduct(@RequestBody ProductDTO productDTO) {
+		Product product = this.model.map(productDTO, Product.class);
+		Product updatedProduct =  productService.updateProduct(product);
+		return this.model.map(updatedProduct, ProductDTO.class);
+	}
 }

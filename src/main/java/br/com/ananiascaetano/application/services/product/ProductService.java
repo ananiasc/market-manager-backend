@@ -1,6 +1,7 @@
 package br.com.ananiascaetano.application.services.product;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,8 @@ public class ProductService {
 	private final ProductRepository repository;
 	
 	private final ProductTypeService productTypeService;
-	
+	private final ProductRepository productRepository;
+
 	public List<Product> findAll(){
 		return repository.findAll();
 	}
@@ -27,5 +29,19 @@ public class ProductService {
 				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
 		
 		return repository.save(product);
+	}
+
+	public Product updateProduct(Product product) {
+		productTypeService.findById(product.getType().getId())
+				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
+
+		return repository.updateProductById(product);
+	}
+
+	public void deleteProduct(Long id) {
+		productRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
+
+		repository.deleteById(id);
 	}
 }

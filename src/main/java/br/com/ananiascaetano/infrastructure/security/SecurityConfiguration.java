@@ -62,11 +62,9 @@ public class SecurityConfiguration {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(
 				Arrays.asList(
-					"https://market.ananiasc.dev",
-					"https://ananiascaetano.dev.br",
-					"https://www.ananiascaetano.dev.br",
-					"http://ananiascaetano.dev.br",
-					"http://www.ananiascaetano.dev.br"
+					"https://marketcommerce.ananiascaetano.dev.br",
+					"https://api.ananiascaetano.dev.br",
+					"http://api.ananiascaetano.dev.br"
 				)
 			);
 		configuration.setAllowedMethods(Collections.singletonList("*"));

@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 					.antMatchers(HttpMethod.GET, "/").permitAll()
 					.antMatchers(HttpMethod.POST, "/auth").permitAll()
 					.antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+					.antMatchers("/actuator/health", "/actuator/info").permitAll()
 					.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

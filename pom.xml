@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.ananiascaetano</groupId>
 	<artifactId>MarketBackend</artifactId>
-	<version>0.8.1</version>
+	<version>0.8.2</version>
 	<name>MarketBackend</name>
 	<description>Backend de um sistema E-commerce baseado em minhas experiências dentro do ramo</description>
 	<properties>

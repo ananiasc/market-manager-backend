@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.ananiascaetano</groupId>
 	<artifactId>MarketBackend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.8.1</version>
 	<name>MarketBackend</name>
 	<description>Backend de um sistema E-commerce baseado em minhas experiências dentro do ramo</description>
 	<properties>
@@ -82,6 +82,11 @@
 		    <groupId>org.springdoc</groupId>
 		    <artifactId>springdoc-openapi-ui</artifactId>
 		    <version>1.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	    
 	</dependencies>

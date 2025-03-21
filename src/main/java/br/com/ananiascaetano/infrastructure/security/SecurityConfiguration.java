@@ -42,6 +42,7 @@ public class SecurityConfiguration {
 					.antMatchers(HttpMethod.GET, "/").permitAll()
 					.antMatchers(HttpMethod.POST, "/auth").permitAll()
 					.antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+					.antMatchers("/actuator/health", "/actuator/info").permitAll()
 					.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -63,11 +64,9 @@ public class SecurityConfiguration {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(
 				Arrays.asList(
-					"https://market.ananiasc.dev",
-					"https://ananiascaetano.dev.br",
-					"https://www.ananiascaetano.dev.br",
-					"http://ananiascaetano.dev.br",
-					"http://www.ananiascaetano.dev.br"
+					"https://marketcommerce.ananiascaetano.dev.br",
+					"https://api.ananiascaetano.dev.br",
+					"http://api.ananiascaetano.dev.br"
 				)
 			);
 		configuration.setAllowedMethods(Collections.singletonList("*"));

@@ -1,6 +1,7 @@
 package br.com.ananiascaetano.application.services.user;
 
 import br.com.ananiascaetano.domain.entities.user.User;
+import br.com.ananiascaetano.expections.EntityNotFoundException;
 import br.com.ananiascaetano.infrastructure.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import br.com.ananiascaetano.constants.ErrorMessages;
@@ -32,5 +33,11 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USERNAME_NOT_FOUND) {
+        });
     }
 }

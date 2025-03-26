@@ -32,8 +32,14 @@ public class UserController {
         return userMapper.convertToEntityDTOList(users);
     }
 
+    @GetMapping("/{id}")
+    public UserDto findById(@PathVariable Long id) {
+        User user = userService.findById(id);
+        return modelMapper.map(user, UserDto.class);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody UserRegisterDTO registerDTO) {
         if(userService.usernameAlreadyExist(registerDTO.getUsername())) {

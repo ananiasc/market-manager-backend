@@ -7,6 +7,7 @@ import br.com.ananiascaetano.constants.ErrorMessages;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -27,5 +28,9 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new AuthenticationException(ErrorMessages.AUTHENTICATION_FAIL) {
                 });
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

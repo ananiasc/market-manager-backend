@@ -4,13 +4,19 @@ import br.com.ananiascaetano.application.services.user.UserService;
 import br.com.ananiascaetano.constants.ErrorMessages;
 import br.com.ananiascaetano.domain.entities.user.User;
 import br.com.ananiascaetano.expections.UsernameAlreadyExistException;
+import br.com.ananiascaetano.mappers.user.UserMapper;
+import br.com.ananiascaetano.presentation.dtos.user.UserDto;
 import br.com.ananiascaetano.presentation.dtos.user.UserRegisterDTO;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +24,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper = new ModelMapper();
+    private final UserMapper userMapper = new UserMapper();
+
+    @GetMapping()
+    public List<UserDto> findAll() {
+        List<User> users = userService.findAll();
+        return userMapper.convertToEntityDTOList(users);
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping

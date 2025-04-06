@@ -50,4 +50,10 @@ public class UserController {
         User user = modelMapper.map(userUpdateDto, User.class);
         userService.update(user);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
 }

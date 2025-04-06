@@ -48,6 +48,6 @@ public class UserController {
     @PutMapping()
     public void update(@RequestBody UserUpdateDto userUpdateDto) {
         User user = modelMapper.map(userUpdateDto, User.class);
-        userService.save(user);
+        userService.update(user);
     }
 }

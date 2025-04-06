@@ -5,6 +5,7 @@ import br.com.ananiascaetano.domain.entities.user.User;
 import br.com.ananiascaetano.mappers.user.UserMapper;
 import br.com.ananiascaetano.presentation.dtos.user.UserDto;
 import br.com.ananiascaetano.presentation.dtos.user.UserRegisterDTO;
+import br.com.ananiascaetano.presentation.dtos.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -40,6 +41,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody UserRegisterDTO registerDTO) {
         User user = modelMapper.map(registerDTO, User.class);
+        userService.save(user);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping()
+    public void update(@RequestBody UserUpdateDto userUpdateDto) {
+        User user = modelMapper.map(userUpdateDto, User.class);
         userService.save(user);
     }
 }

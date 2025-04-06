@@ -47,4 +47,33 @@ public class UserService {
         .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USERNAME_NOT_FOUND) {
         });
     }
+
+    private boolean usernameAlreadyExistWithOtherId(Long id, String username) {
+        Optional<User> userExist = userRepository.findByUsername(username);
+        if(userExist.isPresent()) {
+            if(userExist.get().getId().equals(id)) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void update(User userUpdate) {
+        User user = findById(userUpdate.getId());
+
+        if(user.isNewUsername(userUpdate.getUsername()) && usernameAlreadyExistWithOtherId(userUpdate.getId(), userUpdate.getUsername())) {
+            throw new UsernameAlreadyExistException(ErrorMessages.USERNAME_ALREADY_EXIST);
+        }
+
+        user.setActive(userUpdate.isActive());
+        user.setEmail(userUpdate.getEmail());
+        user.setLastName(userUpdate.getLastName());
+        user.setName(userUpdate.getName());
+        user.setPhoneNumber(userUpdate.getPhoneNumber());
+        user.setRole(user.getRole());
+        user.setUsername(userUpdate.getUsername());
+
+        userRepository.save(user);
+    }
 }

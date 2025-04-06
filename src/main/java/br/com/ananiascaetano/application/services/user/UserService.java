@@ -2,10 +2,12 @@ package br.com.ananiascaetano.application.services.user;
 
 import br.com.ananiascaetano.domain.entities.user.User;
 import br.com.ananiascaetano.expections.EntityNotFoundException;
+import br.com.ananiascaetano.expections.UsernameAlreadyExistException;
 import br.com.ananiascaetano.infrastructure.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import br.com.ananiascaetano.constants.ErrorMessages;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +19,15 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void save(User user) {
+        if(usernameAlreadyExist(user.getUsername())) {
+            throw new UsernameAlreadyExistException(ErrorMessages.USERNAME_ALREADY_EXIST);
+        }
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         userRepository.save(user);
     }
 
-    public boolean usernameAlreadyExist(String username) {
+    private boolean usernameAlreadyExist(String username) {
         Optional<User> userExist = userRepository.findByUsername(username);
         return userExist.isPresent();
     }

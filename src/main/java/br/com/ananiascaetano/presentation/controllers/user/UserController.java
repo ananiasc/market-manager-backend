@@ -2,6 +2,7 @@ package br.com.ananiascaetano.presentation.controllers.user;
 
 import br.com.ananiascaetano.application.services.user.UserService;
 import br.com.ananiascaetano.domain.entities.user.User;
+import br.com.ananiascaetano.infrastructure.security.TokenService;
 import br.com.ananiascaetano.mappers.user.UserMapper;
 import br.com.ananiascaetano.presentation.dtos.user.UserDto;
 import br.com.ananiascaetano.presentation.dtos.user.UserRegisterDTO;
@@ -23,6 +24,7 @@ public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper = new ModelMapper();
     private final UserMapper userMapper = new UserMapper();
+    private final TokenService tokenService;
 
     @GetMapping()
     public List<UserDto> findAll() {
@@ -33,6 +35,13 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDto findById(@PathVariable Long id) {
         User user = userService.findById(id);
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    @GetMapping("/me")
+    public UserDto findMe(@RequestHeader("Authorization") String authorization) {
+        String username = tokenService.extractUsername(authorization);
+        User user = userService.findByUsername(username);
         return modelMapper.map(user, UserDto.class);
     }
 

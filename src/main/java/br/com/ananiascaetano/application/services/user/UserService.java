@@ -82,4 +82,10 @@ public class UserService {
         user.setId(id);
         userRepository.delete(user);
     }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+        .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USERNAME_NOT_FOUND) {
+        });
+    }
 }

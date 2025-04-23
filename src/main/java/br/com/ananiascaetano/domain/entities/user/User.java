@@ -27,4 +27,11 @@ public class User {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	private UserRole role;
+
+	public boolean isNewUsername(String username) {
+		if(this.username.equals(username)) {
+			return false;
+		}
+		return true;
+	}
 }

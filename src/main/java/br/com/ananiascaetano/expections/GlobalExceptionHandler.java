@@ -18,4 +18,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException exception) {
         return new ResponseEntity<>(ErrorMessages.AUTHENTICATION_FAIL, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(UsernameAlreadyExistException.class)
+    public ResponseEntity<String> handleUserLoginAlreadyExistException(UsernameAlreadyExistException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

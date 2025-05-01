@@ -28,16 +28,14 @@ public class ProductService {
 	}
 	
 	public Product createProduct(Product product) {
-		productTypeService.findById(product.getTypeId())
-				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
+		productTypeService.findById(product.getTypeId());
 		brandService.findById(product.getBrandId());
 		
 		return productRepository.save(product);
 	}
 
 	public Product updateProduct(Product productUpdate) {
-		productTypeService.findById(productUpdate.getTypeId())
-				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
+		productTypeService.findById(productUpdate.getTypeId());
 		brandService.findById(productUpdate.getBrandId());
 
 		Product product = findById(productUpdate.getId());

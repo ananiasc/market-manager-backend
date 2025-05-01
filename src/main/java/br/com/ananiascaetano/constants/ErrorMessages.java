@@ -8,4 +8,5 @@ public final class ErrorMessages {
 	public static final String USERNAME_ALREADY_EXIST = "A user with that username already exists. Please enter another username!";
 	public static final String USERNAME_NOT_FOUND = "User not found";
 	public static final String JWT_GET_USERNAME_FAIL = "Error while getting username from token";
+	public static final String CATEGORY_NOT_FOUND = "Category is not found";
 }

@@ -1,7 +1,6 @@
 package br.com.ananiascaetano.application.services.product;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 

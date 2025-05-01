@@ -13,8 +13,6 @@ import br.com.ananiascaetano.mappers.product.ProductMapper;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
 import lombok.RequiredArgsConstructor;
 
-import javax.xml.ws.Response;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")

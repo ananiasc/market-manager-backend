@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.ananiascaetano.application.services.product.ProductService;
@@ -29,8 +29,16 @@ public class ProductController {
 		List<Product> products = productService.findAll();
 		return productMapper.convertToEntityDTOList(products);
 	}
+
+	@GetMapping("/{id}")
+	public ProductDTO findById(@PathVariable Long id) {
+		Product product = productService.findById(id);
+		return model.map(product, ProductDTO.class);
+	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
 		
@@ -38,16 +46,16 @@ public class ProductController {
 		return this.model.map(savedProduct, ProductDTO.class);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping
-	public ProductDTO updateProduct(@RequestBody ProductDTO productDTO) {
+	public void updateProduct(@RequestBody ProductDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
-		Product updatedProduct =  productService.updateProduct(product);
-		return this.model.map(updatedProduct, ProductDTO.class);
+		productService.updateProduct(product);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+	public void deleteProduct(@PathVariable Long id) {
 		productService.deleteProduct(id);
-		return new ResponseEntity<>("Deleted user", HttpStatus.OK);
 	}
 }

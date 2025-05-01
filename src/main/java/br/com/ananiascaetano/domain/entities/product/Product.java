@@ -42,6 +42,5 @@ public class Product {
 	private boolean active;
 	private String slug;
 	@Column(name = "brand_id")
-	private int brandId;
-
+	private Integer brandId;
 }

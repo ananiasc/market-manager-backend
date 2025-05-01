@@ -9,5 +9,5 @@ public final class ErrorMessages {
 	public static final String USERNAME_NOT_FOUND = "User not found";
 	public static final String JWT_GET_USERNAME_FAIL = "Error while getting username from token";
 	public static final String CATEGORY_NOT_FOUND = "Category is not found";
-	public static final String PRODUCT_NOT_FOUND = "Product not found";
+	public static final String PRODUCT_NOT_FOUND = "Product is not found";
 }

@@ -22,6 +22,11 @@ public class ProductService {
 	public List<Product> findAll(){
 		return repository.findAll();
 	}
+
+	public Product findById(Long id) {
+		return repository.findById(id)
+			.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
+	}
 	
 	public Product createProduct(Product product) {
 		productTypeService.findById(product.getTypeId())
@@ -30,11 +35,13 @@ public class ProductService {
 		return repository.save(product);
 	}
 
-	public Product updateProduct(Product product) {
-		productTypeService.findById(product.getTypeId())
+	public Product updateProduct(Product productUpdate) {
+		Product product = findById(productUpdate.getId());
+		productTypeService.findById(productUpdate.getTypeId())
 				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
-
-		return repository.updateProductById(product);
+		productUpdate.setCode(product.getCode());
+		
+		return repository.updateProductById(productUpdate);
 	}
 
 	public void deleteProduct(Long id) {

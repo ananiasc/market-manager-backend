@@ -32,7 +32,7 @@ public class ProductService {
 	}
 
 	public Product updateProduct(Product product) {
-		productTypeService.findById(product.getType().getId())
+		productTypeService.findById(product.getTypeId())
 				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
 
 		return repository.updateProductById(product);

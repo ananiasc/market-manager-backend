@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.ananiascaetano.application.services.brand.BrandService;
 import br.com.ananiascaetano.constants.ErrorMessages;
 import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.expections.EntityNotFoundException;
@@ -13,41 +14,42 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ProductService {
-
-	private final ProductRepository repository;
-	
 	private final ProductTypeService productTypeService;
 	private final ProductRepository productRepository;
+	private final BrandService brandService;
 
 	public List<Product> findAll(){
-		return repository.findAll();
+		return productRepository.findAll();
 	}
 
 	public Product findById(Long id) {
-		return repository.findById(id)
+		return productRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
 	}
 	
 	public Product createProduct(Product product) {
 		productTypeService.findById(product.getTypeId())
 				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
+		brandService.findById(product.getBrandId());
 		
-		return repository.save(product);
+		return productRepository.save(product);
 	}
 
 	public Product updateProduct(Product productUpdate) {
-		Product product = findById(productUpdate.getId());
 		productTypeService.findById(productUpdate.getTypeId())
 				.orElseThrow(() ->  new EntityNotFoundException(ErrorMessages.PRODUCT_TYPE_NOT_FOUND));
+		brandService.findById(productUpdate.getBrandId());
+
+		Product product = findById(productUpdate.getId());
 		productUpdate.setCode(product.getCode());
 		
-		return repository.updateProductById(productUpdate);
+		return productRepository.updateProductById(productUpdate);
 	}
 
 	public void deleteProduct(Long id) {
 		productRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
 
-		repository.deleteById(id);
+		productRepository.deleteById(id);
 	}
 }

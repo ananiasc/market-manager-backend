@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -37,11 +35,13 @@ public class Product {
 	private BigDecimal discountedPrice;
 	@Column(name = "is_discounted")
 	private boolean discounted;
-	
-	@ManyToOne
-	@JoinColumn(name = "type_id")
-	private ProductType type;
+	@Column(name = "type_id")
+	private Integer typeId;
 	private int stock;
 	@Column(name = "is_active")
 	private boolean active;
+	private String slug;
+	@Column(name = "brand_id")
+	private int brandId;
+
 }

@@ -1,4 +1,4 @@
-package br.com.ananiascaetano.domain.category;
+package br.com.ananiascaetano.domain.entities.category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

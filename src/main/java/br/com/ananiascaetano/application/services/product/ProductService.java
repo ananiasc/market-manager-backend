@@ -39,14 +39,14 @@ public class ProductService {
 	}
 
 	public void updateProduct(Product productUpdate, List<Category> categories) {
+		Product product = findById(productUpdate.getId());
 		productTypeService.findById(productUpdate.getTypeId());
 		brandService.findById(productUpdate.getBrandId());
 		categoryService.validateCategoriesList(categories);
 
-		Product product = findById(productUpdate.getId());
 		productUpdate.setCode(product.getCode());
 		
-		productRepository.updateProductById(productUpdate);
+		productRepository.save(productUpdate);
 	}
 
 	public void deleteProduct(Long id) {

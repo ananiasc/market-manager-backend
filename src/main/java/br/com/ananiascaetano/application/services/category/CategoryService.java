@@ -28,7 +28,7 @@ public class CategoryService {
         List<Integer> ids = categories.stream()
                                 .map(category -> category.getId())
                                 .collect(Collectors.toList());
-        List<Integer> existingIds = categoryRepository.findExistingIds(ids);
+        List<Integer> existingIds = categoryRepository.findByIdIn(ids);
 
         if(Category.hasCatogoryIdWithoutRegistration(ids, existingIds)) {
             throw new EntityNotFoundException(ErrorMessages.CATEGORY_NOT_FOUND);

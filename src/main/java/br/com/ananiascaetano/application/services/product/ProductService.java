@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.ananiascaetano.application.services.brand.BrandService;
+import br.com.ananiascaetano.application.services.category.CategoryService;
 import br.com.ananiascaetano.constants.ErrorMessages;
+import br.com.ananiascaetano.domain.entities.category.Category;
 import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.expections.EntityNotFoundException;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductRepository;
@@ -17,6 +19,7 @@ public class ProductService {
 	private final ProductTypeService productTypeService;
 	private final ProductRepository productRepository;
 	private final BrandService brandService;
+	private final CategoryService categoryService;
 
 	public List<Product> findAll(){
 		return productRepository.findAll();
@@ -27,21 +30,23 @@ public class ProductService {
 			.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
 	}
 	
-	public Product createProduct(Product product) {
+	public void createProduct(Product product, List<Category> categories) {
 		productTypeService.findById(product.getTypeId());
 		brandService.findById(product.getBrandId());
-		
-		return productRepository.save(product);
+		categoryService.validateCategoriesList(categories);
+
+		productRepository.save(product);
 	}
 
-	public Product updateProduct(Product productUpdate) {
+	public void updateProduct(Product productUpdate, List<Category> categories) {
 		productTypeService.findById(productUpdate.getTypeId());
 		brandService.findById(productUpdate.getBrandId());
+		categoryService.validateCategoriesList(categories);
 
 		Product product = findById(productUpdate.getId());
 		productUpdate.setCode(product.getCode());
 		
-		return productRepository.updateProductById(productUpdate);
+		productRepository.updateProductById(productUpdate);
 	}
 
 	public void deleteProduct(Long id) {

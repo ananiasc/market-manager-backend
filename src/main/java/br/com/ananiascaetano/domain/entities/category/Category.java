@@ -1,5 +1,7 @@
 package br.com.ananiascaetano.domain.entities.category;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,4 +27,15 @@ public class Category {
     private String name;
     @Column(name = "parent_category_id")
     private Integer parentCategoryId;
+
+    public static boolean hasCatogoryIdWithoutRegistration(List<Integer> idsToValidate, List<Integer> existingIds) {
+        List<Integer> idsNotFound = idsToValidate;
+        idsNotFound.removeAll(existingIds);
+
+        if(idsNotFound.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
 }

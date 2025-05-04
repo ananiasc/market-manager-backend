@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
+	private Long id;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
 	private String code;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)

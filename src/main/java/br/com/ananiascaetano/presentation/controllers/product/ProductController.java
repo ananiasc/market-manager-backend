@@ -2,6 +2,8 @@ package br.com.ananiascaetano.presentation.controllers.product;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +15,7 @@ import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.mappers.category.CategoryMapper;
 import br.com.ananiascaetano.mappers.product.ProductMapper;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
+import br.com.ananiascaetano.presentation.dtos.product.ProductUpdateDTO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -40,7 +43,7 @@ public class ProductController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createProduct(@RequestBody ProductDTO productDTO) {
+	public void createProduct(@Valid @RequestBody ProductDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
 		List<Category> categories = categoryMapper.convertToEntityDTOList(productDTO.getCategories());
 		
@@ -49,7 +52,7 @@ public class ProductController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping
-	public void updateProduct(@RequestBody ProductDTO productDTO) {
+	public void updateProduct(@Valid @RequestBody ProductUpdateDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
 		List<Category> categories = categoryMapper.convertToEntityDTOList(productDTO.getCategories());
 		

@@ -17,12 +17,16 @@ import lombok.NoArgsConstructor;
 public class ProductDTO {
 	private Long id;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
+	@NotEmpty(message = ValidationMessages.ATTRIBUTE_IS_NOT_EMPTY)
 	private String code;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
+	@NotEmpty(message = ValidationMessages.ATTRIBUTE_IS_NOT_EMPTY)
 	private String title;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
+	@NotEmpty(message = ValidationMessages.ATTRIBUTE_IS_NOT_EMPTY)
 	private String technicalDescription;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
+	@NotEmpty(message = ValidationMessages.ATTRIBUTE_IS_NOT_EMPTY)
 	private String longDescription;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
 	private BigDecimal price;
@@ -37,6 +41,7 @@ public class ProductDTO {
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
 	private boolean active;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
+	@NotEmpty(message = ValidationMessages.ATTRIBUTE_IS_NOT_EMPTY)
 	private String slug;
 	@NotNull(message = ValidationMessages.ATTRIBUTE_IS_NOT_NULL)
 	private Integer brandId;

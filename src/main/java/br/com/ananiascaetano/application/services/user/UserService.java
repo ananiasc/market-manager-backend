@@ -2,7 +2,7 @@ package br.com.ananiascaetano.application.services.user;
 
 import br.com.ananiascaetano.domain.entities.user.User;
 import br.com.ananiascaetano.expections.EntityNotFoundException;
-import br.com.ananiascaetano.expections.UsernameAlreadyExistException;
+import br.com.ananiascaetano.expections.EntityAlreadyExistException;
 import br.com.ananiascaetano.infrastructure.repositories.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import br.com.ananiascaetano.constants.ErrorMessages;
@@ -20,7 +20,7 @@ public class UserService {
 
     public void save(User user) {
         if(usernameAlreadyExist(user.getUsername())) {
-            throw new UsernameAlreadyExistException(ErrorMessages.USERNAME_ALREADY_EXIST);
+            throw new EntityAlreadyExistException(ErrorMessages.USERNAME_ALREADY_EXIST);
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
@@ -63,7 +63,7 @@ public class UserService {
         User user = findById(userUpdate.getId());
 
         if(user.isNewUsername(userUpdate.getUsername()) && usernameAlreadyExistWithOtherId(userUpdate.getId(), userUpdate.getUsername())) {
-            throw new UsernameAlreadyExistException(ErrorMessages.USERNAME_ALREADY_EXIST);
+            throw new EntityAlreadyExistException(ErrorMessages.USERNAME_ALREADY_EXIST);
         }
 
         user.setActive(userUpdate.isActive());

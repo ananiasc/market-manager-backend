@@ -45,7 +45,7 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createProduct(@Valid @RequestBody ProductDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
-		List<Category> categories = categoryMapper.convertToEntityDTOList(productDTO.getCategories());
+		List<Category> categories = categoryMapper.convertDTOToEntityList(productDTO.getCategories());
 		
 		productService.createProduct(product, categories);
 	}
@@ -54,7 +54,7 @@ public class ProductController {
 	@PutMapping
 	public void updateProduct(@Valid @RequestBody ProductUpdateDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
-		List<Category> categories = categoryMapper.convertToEntityDTOList(productDTO.getCategories());
+		List<Category> categories = categoryMapper.convertDTOToEntityList(productDTO.getCategories());
 		
 		productService.updateProduct(product, categories);
 	}

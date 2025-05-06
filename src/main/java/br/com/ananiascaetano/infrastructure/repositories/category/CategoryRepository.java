@@ -8,5 +8,5 @@ import br.com.ananiascaetano.domain.entities.category.Category;
 
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    List<Integer> findByIdIn(List<Integer> ids);
+    List<Category> findByIdIn(List<Integer> ids);
 }

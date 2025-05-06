@@ -15,9 +15,9 @@ public class CategoryMapper {
         this.model =  new ModelMapper();
     }
 
-    public List<Category> convertToEntityDTOList(List<CategoryDTO> categoriesDTO) {
+    public List<Category> convertDTOToEntityList(List<CategoryDTO> categoriesDTO) {
         return categoriesDTO.stream()
-            .map(category -> this.model.map(categoriesDTO, Category.class))
+            .map(category -> this.model.map(category, Category.class))
             .collect(Collectors.toList());
     }
 }

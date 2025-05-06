@@ -43,4 +43,8 @@ public class Product {
 	private String slug;
 	@Column(name = "brand_id")
 	private Integer brandId;
+
+	public boolean itsDifferentSlug(String slug) {
+		return !this.slug.equals(slug);
+	}
 }

@@ -11,4 +11,5 @@ public final class ErrorMessages {
 	public static final String CATEGORY_NOT_FOUND = "Category is not found";
 	public static final String PRODUCT_NOT_FOUND = "Product is not found";
 	public static final String BRAND_NOT_FOUND = "Brand is not found";
+	public static final String SLUG_ALREADY_EXIST = "A product with that slug already exists. Please enter another slug!";
 }

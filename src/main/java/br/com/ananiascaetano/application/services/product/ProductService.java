@@ -1,6 +1,7 @@
 package br.com.ananiascaetano.application.services.product;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import br.com.ananiascaetano.application.services.category.CategoryService;
 import br.com.ananiascaetano.constants.ErrorMessages;
 import br.com.ananiascaetano.domain.entities.category.Category;
 import br.com.ananiascaetano.domain.entities.product.Product;
+import br.com.ananiascaetano.expections.EntityAlreadyExistException;
 import br.com.ananiascaetano.expections.EntityNotFoundException;
 import br.com.ananiascaetano.infrastructure.repositories.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ public class ProductService {
 	}
 	
 	public void createProduct(Product product, List<Category> categories) {
+		validateSlugUniqueness(product.getSlug());
 		productTypeService.findById(product.getTypeId());
 		brandService.findById(product.getBrandId());
 		categoryService.validateCategoriesList(categories);
@@ -40,6 +43,9 @@ public class ProductService {
 
 	public void updateProduct(Product productUpdate, List<Category> categories) {
 		Product product = findById(productUpdate.getId());
+		if(product.itsDifferentSlug(productUpdate.getSlug())) {
+			validateSlugUniqueness(productUpdate.getSlug());
+		}
 		productTypeService.findById(productUpdate.getTypeId());
 		brandService.findById(productUpdate.getBrandId());
 		categoryService.validateCategoriesList(categories);
@@ -52,5 +58,12 @@ public class ProductService {
 	public void deleteProduct(Long id) {
 		findById(id);
 		productRepository.deleteById(id);
+	}
+
+	private void validateSlugUniqueness(String slug) {
+		Optional<Product> productBySlug = productRepository.findBySlug(slug);
+		if(productBySlug.isPresent()) {
+			throw new EntityAlreadyExistException(ErrorMessages.SLUG_ALREADY_EXIST);
+		}
 	}
 }

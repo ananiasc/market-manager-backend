@@ -27,7 +27,7 @@ public class ProductService {
 
 	public Product findById(Long id) {
 		return productRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
+				.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
 	}
 	
 	public void createProduct(Product product, List<Category> categories) {
@@ -50,9 +50,7 @@ public class ProductService {
 	}
 
 	public void deleteProduct(Long id) {
-		productRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
-
+		findById(id);
 		productRepository.deleteById(id);
 	}
 }

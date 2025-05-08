@@ -16,14 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
-    }
-
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
-    }
-
     public void validateCategoriesList(List<Category> categories) {
         List<Integer> ids = categories.stream()
                                 .map(category -> category.getId())

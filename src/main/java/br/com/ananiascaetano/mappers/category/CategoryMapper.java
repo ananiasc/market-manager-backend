@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 
 import br.com.ananiascaetano.domain.entities.category.Category;
+import br.com.ananiascaetano.domain.products_categories.ProductsCategories;
 import br.com.ananiascaetano.presentation.dtos.product.CategoryDTO;
 
 public class CategoryMapper {
@@ -18,6 +19,25 @@ public class CategoryMapper {
     public List<Category> convertDTOToEntityList(List<CategoryDTO> categoriesDTO) {
         return categoriesDTO.stream()
             .map(category -> this.model.map(category, Category.class))
+            .collect(Collectors.toList());
+    }
+
+    public List<Category> convertProductsCategoriesToEntityList(List<ProductsCategories> productsCategories) {
+        return productsCategories.stream()
+            .map(productCategory -> convertProductCategoryToCategory(productCategory))
+            .collect(Collectors.toList());
+    }
+
+    public Category convertProductCategoryToCategory(ProductsCategories productCategory) {
+        Category category = new Category();
+        category.setId(productCategory.getId().getCategoryId());
+        
+        return category;
+    }
+
+    public List<CategoryDTO> convertEntityToDTOList(List<Category> categories) {
+        return categories.stream()
+            .map(category -> this.model.map(category, CategoryDTO.class))
             .collect(Collectors.toList());
     }
 }

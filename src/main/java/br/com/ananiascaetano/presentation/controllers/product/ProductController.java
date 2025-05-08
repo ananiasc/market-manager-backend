@@ -10,8 +10,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.ananiascaetano.application.services.product.ProductService;
+import br.com.ananiascaetano.application.services.products_categories.ProductsCategoriesService;
 import br.com.ananiascaetano.domain.entities.category.Category;
 import br.com.ananiascaetano.domain.entities.product.Product;
+import br.com.ananiascaetano.domain.products_categories.ProductsCategories;
 import br.com.ananiascaetano.mappers.category.CategoryMapper;
 import br.com.ananiascaetano.mappers.product.ProductMapper;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
@@ -27,6 +29,7 @@ public class ProductController {
 	private ProductMapper productMapper = new ProductMapper();
 	private ModelMapper model = new ModelMapper();
 	private CategoryMapper categoryMapper = new CategoryMapper();
+	private final ProductsCategoriesService productsCategoriesService;
 
 	@GetMapping
 	public List<ProductDTO> findAll() {
@@ -37,7 +40,11 @@ public class ProductController {
 	@GetMapping("/{id}")
 	public ProductDTO findById(@PathVariable Long id) {
 		Product product = productService.findById(id);
-		return model.map(product, ProductDTO.class);
+		List<ProductsCategories> productsCategories = productsCategoriesService.findByProductId(product.getId());
+		ProductDTO productDTO = model.map(product, ProductDTO.class);
+		List<Category> categories = categoryMapper.convertProductsCategoriesToEntityList(productsCategories);
+		productDTO.setCategories(categoryMapper.convertEntityToDTOList(categories));
+		return productDTO;
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")

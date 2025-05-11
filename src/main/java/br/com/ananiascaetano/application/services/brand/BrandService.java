@@ -1,7 +1,5 @@
 package br.com.ananiascaetano.application.services.brand;
 
-import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -15,10 +13,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class BrandService {
     private final BrandRepository brandRepository;
-
-    public List<Brand> findAll() {
-        return brandRepository.findAll();
-    }
 
     public Brand findById(Integer id) {
         return brandRepository.findById(id)

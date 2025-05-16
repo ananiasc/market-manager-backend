@@ -16,6 +16,7 @@ import br.com.ananiascaetano.domain.entities.product.Product;
 import br.com.ananiascaetano.domain.products_categories.ProductsCategories;
 import br.com.ananiascaetano.mappers.category.CategoryMapper;
 import br.com.ananiascaetano.mappers.product.ProductMapper;
+import br.com.ananiascaetano.presentation.dtos.product.CategoryDTO;
 import br.com.ananiascaetano.presentation.dtos.product.ProductDTO;
 import br.com.ananiascaetano.presentation.dtos.product.ProductUpdateDTO;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,8 @@ public class ProductController {
 		Product product = productService.findById(id);
 		List<ProductsCategories> productsCategories = productsCategoriesService.findByProductId(product.getId());
 		ProductDTO productDTO = model.map(product, ProductDTO.class);
-		List<Category> categories = categoryMapper.convertProductsCategoriesToEntityList(productsCategories);
-		productDTO.setCategories(categoryMapper.convertEntityToDTOList(categories));
+		List<CategoryDTO> categories = categoryMapper.convertProductsCategoriesToCategoriesDTOList(productsCategories);
+		productDTO.setCategories(categories);
 		return productDTO;
 	}
 	

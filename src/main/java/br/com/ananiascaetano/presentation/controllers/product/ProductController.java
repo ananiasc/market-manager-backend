@@ -54,8 +54,8 @@ public class ProductController {
 	public void createProduct(@Valid @RequestBody ProductDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
 		List<Category> categories = categoryMapper.convertDTOToEntityList(productDTO.getCategories());
-		
-		productService.createProduct(product, categories);
+		Product productCreated = productService.createProduct(product, categories);
+		productsCategoriesService.createProductsCategoriesByProducIdAndCategories(productCreated.getId(), categories);
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")

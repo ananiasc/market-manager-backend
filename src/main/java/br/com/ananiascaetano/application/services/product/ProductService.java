@@ -32,13 +32,13 @@ public class ProductService {
 				.orElseThrow(() -> new EntityNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND));
 	}
 	
-	public void createProduct(Product product, List<Category> categories) {
+	public Product createProduct(Product product, List<Category> categories) {
 		validateSlugUniqueness(product.getSlug());
 		productTypeService.findById(product.getTypeId());
 		brandService.findById(product.getBrandId());
 		categoryService.validateCategoriesList(categories);
 
-		productRepository.save(product);
+		return productRepository.save(product);
 	}
 
 	public void updateProduct(Product productUpdate, List<Category> categories) {

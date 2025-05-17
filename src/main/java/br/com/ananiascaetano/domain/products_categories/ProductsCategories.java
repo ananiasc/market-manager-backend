@@ -16,4 +16,8 @@ import lombok.NoArgsConstructor;
 public class ProductsCategories {
     @EmbeddedId
     private ProductCategoryId id;
+
+    public ProductsCategories(Long productId, Integer categoryId) {
+        this.id = new ProductCategoryId(productId, categoryId);
+    }
 }

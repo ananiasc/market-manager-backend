@@ -63,8 +63,8 @@ public class ProductController {
 	public void updateProduct(@Valid @RequestBody ProductUpdateDTO productDTO) {
 		Product product = this.model.map(productDTO, Product.class);
 		List<Category> categories = categoryMapper.convertDTOToEntityList(productDTO.getCategories());
-		
-		productService.updateProduct(product, categories);
+		Product productUpdated = productService.updateProduct(product, categories);
+		productsCategoriesService.deleteOldLinksAndCreateNewOnes(productUpdated.getId(), categories);
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")

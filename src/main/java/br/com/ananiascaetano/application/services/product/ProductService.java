@@ -41,7 +41,7 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
-	public void updateProduct(Product productUpdate, List<Category> categories) {
+	public Product updateProduct(Product productUpdate, List<Category> categories) {
 		Product product = findById(productUpdate.getId());
 		if(product.itsDifferentSlug(productUpdate.getSlug())) {
 			validateSlugUniqueness(productUpdate.getSlug());
@@ -52,7 +52,7 @@ public class ProductService {
 
 		productUpdate.setCode(product.getCode());
 		
-		productRepository.save(productUpdate);
+		return productRepository.save(productUpdate);
 	}
 
 	public void deleteProduct(Long id) {

@@ -27,4 +27,15 @@ public class ProductsCategoriesService {
     private void createProductsCategories(ProductsCategories productsCategories) {
         productsCategoriesRepository.save(productsCategories);
     }
+
+    public void deleteOldLinksAndCreateNewOnes(Long productId, List<Category> categories) {
+        deleteByProductId(productId);
+        categories.forEach(
+            category -> createProductsCategories(new ProductsCategories(productId, category.getId()))
+        );
+    }
+
+    private void deleteByProductId(Long productId) {
+        productsCategoriesRepository.deleteByProductId(productId);
+    }
 }

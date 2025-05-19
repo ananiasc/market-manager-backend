@@ -70,6 +70,7 @@ public class ProductController {
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public void deleteProduct(@PathVariable Long id) {
+		productsCategoriesService.deleteByProductId(id);
 		productService.deleteProduct(id);
 	}
 }

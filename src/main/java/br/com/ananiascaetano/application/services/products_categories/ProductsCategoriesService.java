@@ -35,7 +35,7 @@ public class ProductsCategoriesService {
         );
     }
 
-    private void deleteByProductId(Long productId) {
+    public void deleteByProductId(Long productId) {
         productsCategoriesRepository.deleteByProductId(productId);
     }
 }

@@ -32,6 +32,8 @@ public class ProductController {
 	private CategoryMapper categoryMapper = new CategoryMapper();
 	private final ProductsCategoriesService productsCategoriesService;
 
+	// Criar findByFilter
+	// Simplificar findAll
 	@GetMapping
 	public List<ProductDTO> findAll() {
 		List<Product> products = productService.findAll();
@@ -55,6 +57,7 @@ public class ProductController {
 		Product product = this.model.map(productDTO, Product.class);
 		List<Category> categories = categoryMapper.convertDTOToEntityList(productDTO.getCategories());
 		Product productCreated = productService.createProduct(product, categories);
+		// Vincular categoria pai das subcategorias
 		productsCategoriesService.createProductsCategoriesByProducIdAndCategories(productCreated.getId(), categories);
 	}
 
@@ -64,6 +67,7 @@ public class ProductController {
 		Product product = this.model.map(productDTO, Product.class);
 		List<Category> categories = categoryMapper.convertDTOToEntityList(productDTO.getCategories());
 		Product productUpdated = productService.updateProduct(product, categories);
+		// Vincular categoria pai das subcategorias
 		productsCategoriesService.deleteOldLinksAndCreateNewOnes(productUpdated.getId(), categories);
 	}
 
